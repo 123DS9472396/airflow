@@ -1,0 +1,37 @@
+# models/staging/schema.yml
+
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: raw_weather
+        description: "Raw weather data ingested by Airflow pipeline"
+        columns:
+          - name: INGESTION_ID
+            tests:
+              - not_null
+          - name: CITY
+            tests:
+              - not_null
+          - name: TEMPERATURE_C
+            tests:
+              - not_null
+
+models:
+  - name: stg_weather
+    description: "Silver layer: cleaned and validated weather data"
+    columns:
+      - name: city_name
+        description: "Standardised city name"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['MUMBAI', 'PUNE', 'DELHI', 'BANGALORE', 'CHENNAI', 'HYDERABAD', 'KOLKATA', 'AHMEDABAD', 'JAIPUR', 'SURAT', 'LUCKNOW', 'KANPUR', 'NAGPUR', 'INDORE', 'BHOPAL']
+      - name: humidity_percent
+        tests:
+          - not_null
+      - name: temperature_celsius
+        tests:
+          - not_null

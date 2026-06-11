@@ -1,0 +1,29 @@
+# dbt_project/dbt_project.yml
+
+name: 'portfolio_weather_pipeline'
+version: '1.0.0'
+config-version: 2
+
+profile: 'portfolio_postgres'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  portfolio_weather_pipeline:
+    staging:
+      +schema: STAGING        # Silver layer → WEATHER_DB.STAGING
+      +materialized: view
+    intermediate:
+      +schema: STAGING
+      +materialized: table
+    marts:
+      +schema: MARTS           # Gold layer → WEATHER_DB.MARTS
+      +materialized: table

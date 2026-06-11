@@ -1,0 +1,11 @@
+# .gitignore
+.env
+profiles.yml
+*.pyc
+__pycache__/
+airflow/logs/
+airflow/plugins/
+target/
+dbt_packages/
+.dbt/
+*.log

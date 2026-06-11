@@ -86,9 +86,21 @@ To prove to recruiters that you understand cloud infrastructure, you can deploy 
 > **Billing Safety:** The AWS Free Tier provides 750 free hours per month for a `t2.micro` instance (enough for 1 server running 24/7). **However, once you are done showing the project to recruiters or finish interviewing, log into AWS and terminate the instance to prevent any future billing.**
 
 **Step 1: Setup AWS EC2 (The Server)**
-1. Go to aws.amazon.com and launch a new **EC2 Instance** (Ubuntu Server, `t2.micro` - Free Tier eligible).
-2. Open **Port 22** (SSH) and **Port 8080** (Airflow UI) in your Security Group.
-3. Download your `.pem` key file.
+Once you are logged into your AWS Console, we need to rent a virtual computer (server) that will run 24/7.
+1. In the AWS search bar at the top, type **EC2** and click on it.
+2. Click the orange **Launch instance** button.
+3. **Name:** Name it `Weather-Pipeline-Server`.
+4. **OS Images (AMI):** Select **Ubuntu** (Make sure the badge says "Free tier eligible").
+5. **Instance Type:** Select `t2.micro` or `t3.micro` (Whichever says "Free tier eligible").
+6. **Key Pair (Login):**
+   - Click **Create new key pair**.
+   - Name it `my-aws-key`.
+   - Keep it as RSA and `.pem`.
+   - Click **Create key pair**. *(A file will download to your computer. Keep this safe! We will need it to access the server).*
+7. **Network Settings:**
+   - Check the box to **Allow SSH traffic from Anywhere**.
+   - Check the box to **Allow HTTP traffic from the internet**.
+8. Go to the bottom and click **Launch instance**.
 
 **Step 2: Install Docker & Clone Code**
 1. SSH into your EC2 instance: `ssh -i "your-key.pem" ubuntu@your-ec2-ip-address`

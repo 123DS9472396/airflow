@@ -65,55 +65,39 @@ weather-elt-pipeline/
 
 ---
 
-### 🚀 Quick Start (Local Deployment)
+## 🚀 Deployment Strategies
 
-**Prerequisites:** Docker Desktop, Python 3.10+, dbt Core, Power BI Desktop.
+This project is built to support both free local testing and production-grade cloud deployment.
 
-1. **Clone & Configure:**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/weather-elt-pipeline.git
-   cd weather-elt-pipeline
-   ```
-   Create a `.env` file in the root directory and add your OpenWeather API Key.
-
-2. **Start Airflow Orchestration:**
+### Option A: Local Deployment (Free Forever)
+For personal practice and portfolio building, you can run the entire ecosystem locally on your laptop. It will only fetch data while your computer is on.
+1. **Setup:** Ensure Docker Desktop is installed.
+2. **Execute:** 
    ```bash
    cd airflow
-   docker-compose up airflow-init
    docker-compose up -d
    ```
-   Access Airflow at `http://localhost:8080` (admin/admin). Turn on the `diacto_weather_elt_pipeline` DAG.
+3. **Manage:** You can turn the pipeline on and off whenever you want using `docker-compose down`. Running it locally costs nothing. AWS is *only* required if you want the pipeline to fetch data while your laptop is closed.
 
-3. **View the Dashboard:**
-   Open Power BI, connect to your database's `marts` schema, add a Python Visual, and paste the code from `powerbi_dashboard.py`.
+### Option B: Cloud Deployment (AWS Free Tier)
+To prove to recruiters that you understand cloud infrastructure, you can deploy Docker to an AWS EC2 instance. 
 
----
-
-### ☁️ Deploying to Production (AWS Free Tier)
-
-You can host this entire pipeline in the cloud 24/7 for **FREE** using Amazon Web Services (AWS) Free Tier. 
+> [!WARNING]
+> **Billing Safety:** The AWS Free Tier provides 750 free hours per month for a `t2.micro` instance (enough for 1 server running 24/7). **However, once you are done showing the project to recruiters or finish interviewing, log into AWS and terminate the instance to prevent any future billing.**
 
 **Step 1: Setup AWS EC2 (The Server)**
-1. Go to aws.amazon.com and create a free account.
-2. Launch a new **EC2 Instance**. Select the **Ubuntu Server** OS and the `t2.micro` instance type (which is Free Tier eligible).
-3. In the Security Group settings, open **Port 22** (for SSH access) and **Port 8080** (so you can view the Airflow UI from your browser).
-4. Launch the instance and download your `.pem` key file.
+1. Go to aws.amazon.com and launch a new **EC2 Instance** (Ubuntu Server, `t2.micro` - Free Tier eligible).
+2. Open **Port 22** (SSH) and **Port 8080** (Airflow UI) in your Security Group.
+3. Download your `.pem` key file.
 
 **Step 2: Install Docker & Clone Code**
-1. SSH into your EC2 instance using your terminal: `ssh -i "your-key.pem" ubuntu@your-ec2-ip-address`
-2. Run standard Linux commands to install Docker and Docker-Compose.
+1. SSH into your EC2 instance: `ssh -i "your-key.pem" ubuntu@your-ec2-ip-address`
+2. Install Docker and Docker-Compose using standard Linux commands.
 3. Git clone your repository onto the EC2 server.
 
 **Step 3: Run the Pipeline 24/7**
-1. CD into the `/airflow` folder on your server.
-2. Run `docker-compose up -d`. 
-3. Your Airflow scheduler is now running in the cloud! You can close your laptop, and the pipeline will continue to fetch weather data every night at midnight.
-
-**Step 4: Power BI Scheduled Refresh (Optional)**
-To have Power BI automatically update the cloud dashboard:
-1. Install the **Power BI On-premises Data Gateway** on your EC2 instance (or keep your DB hosted in a cloud DB like Snowflake/AWS RDS).
-2. Publish your dashboard to the Power BI Service.
-3. Configure a "Scheduled Refresh" in Power BI Service to run daily at 1:00 AM (right after Airflow completes its midnight run).
+1. Navigate to the `/airflow` folder on your server.
+2. Run `docker-compose up -d`. Your Airflow scheduler is now running in the cloud!
 
 ---
 

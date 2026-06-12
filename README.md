@@ -1,10 +1,10 @@
-# WeatherFlow: Top 1% Enterprise Data Engineering Pipeline 🚀
+# WeatherFlow: Enterprise Data Engineering Pipeline 🚀
 
 **WeatherFlow** is an enterprise-grade automated Data Engineering ELT pipeline and a complete demonstration of the modern data stack (OpenWeatherMap API → Apache Airflow → PostgreSQL/Snowflake → dbt → Power BI Python Visuals).
 
 It automatically extracts live weather and atmospheric data across 15 major Indian cities, orchestrates the entire workflow locally via Docker, transforms the raw data using a strict Medallion Architecture, and renders a stunning, data-driven Dark Mode dashboard directly inside Power BI using a custom high-DPI Python visualization script.
 
-### 🌟 Unique Selling Propositions (What makes this Top 1%)
+### 🌟 Key Architectural Highlights
 Most portfolio projects use static CSV files or manual execution. WeatherFlow is a fully automated, cloud-ready data ecosystem.
 
 1. **Automated DAG Orchestration:** Completely replaces manual script execution with **Apache Airflow**. The DAG automatically runs every midnight, fetching live data, handling retries on API failure, and triggering downstream transformations.
@@ -22,7 +22,7 @@ Most portfolio projects use static CSV files or manual execution. WeatherFlow is
 ---
 
 ### 🏗️ Enterprise Architecture
-This repository models the entire lifecycle of a Top 1% Data Engineering pipeline.
+This repository models the entire lifecycle of an Enterprise Data Engineering pipeline.
 
 **1. Data Ingestion & Orchestration**
 - **Apache Airflow (Dockerized):** Runs the `weather_pipeline.py` DAG. Uses Python operators to fetch live JSON data from the OpenWeatherMap REST API and loads it into the database.

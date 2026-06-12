@@ -5,7 +5,7 @@
 It automatically extracts live weather and atmospheric data across 15 major Indian cities, orchestrates the entire workflow locally via Docker, transforms the raw data using a strict Medallion Architecture, and renders a stunning, data-driven Dark Mode dashboard directly inside Power BI using a custom high-DPI Python visualization script.
 
 ### 🌟 Key Architectural Highlights
-Most portfolio projects use static CSV files or manual execution. WeatherFlow is a fully automated, cloud-ready data ecosystem.
+WeatherFlow is a fully automated, cloud-ready data ecosystem.
 
 1. **Automated DAG Orchestration:** Completely replaces manual script execution with **Apache Airflow**. The DAG automatically runs every midnight, fetching live data, handling retries on API failure, and triggering downstream transformations.
 2. **dbt Medallion Architecture:** Implements the industry-standard multi-hop architecture. Instead of messy SQL scripts, data moves from **Bronze** (Raw) → **Silver** (Cleaned, Typed, Deduplicated, Tested) → **Gold** (Pre-aggregated KPIs, Heat Indexes, Alerts).
